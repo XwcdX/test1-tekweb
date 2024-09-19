@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid d-flex flex-column flex-grow-1 min-vh-100">
+        <div class="row">
+            <div class="col-12 bg-info p-3 fw-bold text-light fs-3">Kanban View</div>
+        </div>
+        <div class="row d-flex justify-content-center flex-grow-1 mt-3">
+            <form style="width: 95%;" class="" onsubmit="">
+                <label>Tugas</label>
+                <div>
+                    <input id="tugas" class="border form-control" type="text" required>
+                </div>
+                <label>Status</label>
+                <div>
+                    <select id="status" class="form-control">
+                        <option value="pending">Pending</option>
+                        <option value="planning">Planning</option>
+                        <option value="design">Design</option>
+                        <option value="development">Development</option>
+                        <option value="testing">Testing</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                </div>
+                <button type="submit"
+                    class="bg-primary rounded border border-0 text-light p-1 px-2 my-2">Tambah</button>
+            </form>
+            <div style="width: 95%; height: 50rem;" class="d-flex mb-3">
+                <div class="card col-2 px-2 flex-grow-1">
+                    <div class="p-1 fw-bold border-bottom bg-body-tertiary">Pending</div>
+                    <div id="pending" class="d-flex overflow-auto pb-4 flex-column align-items-center"></div>
+                </div>
+                <div class="card col-2 px-2">
+                    <div class="p-1 fw-bold border-bottom bg-body-tertiary">Planning</div>
+                    <div id="planning" class="d-flex overflow-auto pb-4 flex-column align-items-center"></div>
+                </div>
+                <div class="card col-2 px-2">
+                    <div class="p-1 fw-bold border-bottom bg-body-tertiary">Design</div>
+                    <div id="design" class="d-flex overflow-auto pb-4 flex-column align-items-center"></div>
+                </div>
+                <div class="card col-2 px-2">
+                    <div class="p-1 fw-bold border-bottom bg-body-tertiary">Development</div>
+                    <div id="development" class="d-flex overflow-auto pb-4 flex-column align-items-center"></div>
+                </div>
+                <div class="card col-2 px-2">
+                    <div class="p-1 fw-bold border-bottom bg-body-tertiary">Testing</div>
+                    <div id="testing" class="d-flex overflow-auto pb-4 flex-column align-items-center"></div>
+                </div>
+                <div class="card col-2 px-2">
+                    <div class="p-1 fw-bold border-bottom bg-body-tertiary">Resolved</div>
+                    <div id="resolved" class="d-flex overflow-auto pb-4 flex-column align-items-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $('form').submit(function (e) {
+        e.preventDefault();
+        const tugas = $('#tugas').val();
+        const status = $('#status').val();
+
+        const cardHTML = `<div class="card cardClicked mt-3 p-3" style="width: 90%; cursor:pointer;">${tugas}</div>`;
+
+        switch (status) {
+            case 'pending':
+                $(cardHTML).appendTo('#pending');
+                break;
+            case 'planning':
+                $(cardHTML).appendTo('#planning');
+                break;
+            case 'design':
+                $(cardHTML).appendTo('#design');
+                break;
+            case 'development':
+                $(cardHTML).appendTo('#development');
+                break;
+            case 'testing':
+                $(cardHTML).appendTo('#testing');
+                break;
+            case 'resolved':
+                $(cardHTML).appendTo('#resolved');
+                break;
+            default:
+                alert('Unknown Status. Please don\'t change the Status value from Inspect Element.');
+        }
+
+        $('#tugas').val('');
+    });
+
+    $(document).on('dblclick', '.cardClicked', function () {
+        $(this).remove();
+    }); 
+</script>
+
+</html>
